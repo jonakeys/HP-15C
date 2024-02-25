@@ -1,0 +1,100 @@
+Find Armstrong / narcissistic numbers
+
+* Exercise text from "Short & Sweet Math Challenges for HP fans #3"
+
+Find *all* numbers of N digits that are equal to the sum of the N-th powers of
+their digits. You must find the numbers themselves, as well as just how many
+there are for each N. The digit 0 *won't* be accepted as first digit, so for
+instance 153 may be a solution for N=3 but 032 wouldn't even be tested.
+
+** Answers:
+1 : 1 2 3 4 5 6 7 8 9
+2 : (none)
+3 : 153 370 371 407
+4 : 1634 8208 9474
+
+* The program
+** Author
+Jonathan van der Steege <jonathan@jonakeys.nl> - February 2024
+** How to use:
+Enter an integer and press f LBL A to start the search. When a valid number is
+found, the display pauses and shows this number. The output is 0 when finished.
+
+** Register legend:
+R1-R9: x^N
+R.0: N digits
+R.1: 
+R.2: Loop from
+R.3: Loop to
+R.4: Sum number
+R.5: Digit counter
+R.6: Working number
+
+** Code:
+| *Keystrokes* | *Key Codes* | *Comments*                         |
+| f LBL A      | 42,21,11    | A: Start of program                |
+| STO .0       | 44,.0       |                                    |
+| 1            | 1           |                                    |
+| -            | 30          |                                    |
+| 10^x         | 13          |                                    |
+| STO .2       | 44,.2       | Set loop from 10^(N-1)             |
+| RCL .0       | 45,.0       |                                    |
+| 10^x         | 13          |                                    |
+| STO .3       | 44,.3       | Set loop to (excl) 10^N            |
+| 1            | 1           |                                    |
+| STO 1        | 44,1        | R1: x^N (always 1)                 |
+| 2.009        | 2.009       | Loop from 2 to 9                   |
+| STO I        | 44,25       |                                    |
+| f LBL .1     | 42,21,.1    | Fill R2-R9: x^N                    |
+| RCL I        | 45,25       |                                    |
+| g INT        | 43,44       |                                    |
+| RCL .0       | 45,.0       |                                    |
+| y^x          | 14          |                                    |
+| STO f (i)    | 44,24       |                                    |
+| f ISG I      | 42,6,25     |                                    |
+| GTO .1       | 22,.1       |                                    |
+| 1            | 1           |                                    |
+| STO - .2     | 44,30,.2    |                                    |
+| f LBL .2     | 42,21,.2    | Calculate value of number          |
+| 1            | 1           |                                    |
+| STO + .2     | 44,40,.2    |                                    |
+| RCL .3       | 45,.3       | .3 = loop to                       |
+| RCL .2       | 45,.2       | .2 = loop from                     |
+| g TEST 7     | 43,30,7     | If from>to: done                   |
+| GTO .4       | 22,.4       |                                    |
+| RCL .0       | 45,.0       | .0 = N                             |
+| STO .5       | 44,.5       | .5 = digit counter                 |
+| RCL .2       | 45,.2       |                                    |
+| STO .6       | 44,.6       | .6 = working number                |
+| 0            | 0           | Clear sum                          |
+| STO .4       | 44,.4       | .4 = sum                           |
+| f LBL .3     | 42,21,.3    | Iterate over digits                |
+| RCL .6       | 45,.6       |                                    |
+| g INT        | 43,44       |                                    |
+| 10           | 10          |                                    |
+| ÷            | 10          |                                    |
+| STO .6       | 44,.6       |                                    |
+| f FRAC       | 42,44       |                                    |
+| 10           | 10          |                                    |
+| x            | 20          |                                    |
+| g TEST 4     | 43,30,4     | Skip if digit<=0                   |
+| GTO .5       | 22,.3       |                                    |
+| STO I        | 44,25       | Store current digit in I           |
+| RCL (i)      | 45,24       | Get stored value (x^N)             |
+| STO + .4     | 44,40,.4    | Add to sum                         |
+| RCL .2       | 45,.2       |                                    |
+| RCL .4       | 45,.4       |                                    |
+| g TEST 7     | 43,30,7     | If sum>number: go to next number   |
+| GTO .2       | 22,.2       |                                    |
+| f LBL .5     |             |                                    |
+| f DSE .5     | 42,5,.5     | Decrease digit counter             |
+| GTO .3       | 22,.3       |                                    |
+| RCL .4       | 45,.4       |                                    |
+| RCL .2       | 45,.2       |                                    |
+| g TEST 5     | 43,30,5     | Check sum = number                 |
+| f PSE        | 42,31       | Display pause if equal             |
+| GTO .2       | 22,.2       |                                    |
+| f LBL .4     | 42,21,.4    | End (return)                       |
+| g CLX        | 43,35       |                                    |
+| g RTN        | 43,32       |                                    |
+ 

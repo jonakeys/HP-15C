@@ -1,6 +1,5 @@
-*Find Armstrong / narcissistic numbers*
-
-* Description
+* *Find Armstrong / narcissistic numbers*
+** Description
 *Exercise text from "Short & Sweet Math Challenges for HP fans #3"*
 
 Find *all* numbers of N digits that are equal to the sum of the N-th powers of
@@ -9,25 +8,25 @@ there are for each N. The digit 0 *won't* be accepted as first digit, so for
 instance 153 may be a solution for N=3 but 032 wouldn't even be tested.
 Example: 1^3+5^3+3^3=153
 
-** Author
+*** Author
 Jonathan van der Steege <jonathan@jonakeys.nl> - February 2024
-** How to use:
+*** How to use:
 Enter an integer (N) and press f LBL A to start the search. When a valid number is
 found, it is added to matrix A. The display shows 0.0000 when finished.
-** Answers:
+*** Answers:
 - 1 : 1 2 3 4 5 6 7 8 9
 - 2 : (none)
 - 3 : 153 370 371 407
 - 4 : 1634 8208 9474
-* Program resources
-** Labels
+** Program resources
+*** Labels
 - A: Start of program
 - B: Fill storage registers (x^N)
 - C: Calculate value of number
 - D: Iterate over digits
 - E: Decrease digit counter
 - .9: End
-** Storage registers
+*** Storage registers
 - R1-R9: x^N
 - R.0: N digits
 - R.1: Loop from
@@ -35,10 +34,10 @@ found, it is added to matrix A. The display shows 0.0000 when finished.
 - R.3: Sum number
 - R.4: Digit counter
 - R.5: Working number
-** Matrix
+*** Matrix
 - A: Result numbers
-* Program
-** Code:
+** Program
+*** Code:
 | 000 | *Keystrokes* | *Key Codes* | *Comments*                       |
 | 001 | f LBL A      | 42,21,11    | A: Start of program              |
 | 002 | STO .0       | 44,.0       |                                  |

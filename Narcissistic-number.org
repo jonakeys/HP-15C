@@ -39,14 +39,14 @@ found, it is added to matrix A. The display shows 0.0000 when finished.
 *** Code:
 | 000 | *Keystrokes* | *Key Codes* | *Comments*                              |
 | 001 | f LBL A      | 42,21,11    | A: Start of program                     |
-| 002 | STO .0       | 44,.0       |                                         |
+| 002 | STO .0       | 44,.0       | Store N digits in .0                    |
 | 003 | 10^x         | 13          |                                         |
-| 004 | STO .2       | 44,.2       | Set loop to (excl) 10^N                 |
+| 004 | STO .2       | 44,.2       | Set loop to: 10^N (excl)                |
 | 005 | g LSTx       | 43,36       |                                         |
 | 006 | 1            | 1           |                                         |
 | 007 | -            | 30          |                                         |
 | 008 | 10^x         | 13          |                                         |
-| 009 | STO .1       | 44,.1       | Set loop from 10^(N-1)                  |
+| 009 | STO .1       | 44,.1       | Set loop from: 10^(N-1)                 |
 | 010 | 1            | 1           | Loop from 1 to 9                        |
 | 011 | .            | 48          |                                         |
 | 012 | 0            | 0           |                                         |
@@ -66,26 +66,26 @@ found, it is added to matrix A. The display shows 0.0000 when finished.
 | 026 | 9            | 9           |                                         |
 | 027 | f DIM A      | 42,23,11    |                                         |
 | 028 | 0            | 0           |                                         |
-| 029 | STO MATRIX A | 44,16,11    |                                         |
+| 029 | STO MATRIX A | 44,16,11    | [x,x,x,x,x,x,x,x,x]                     |
 | 030 | 1            | 1           |                                         |
 | 031 | STO - .1     | 44,30,.1    |                                         |
 | 032 | f LBL C      | 42,21,13    | Calculate value of number               |
 | 033 | 1            | 1           |                                         |
-| 034 | STO + .1     | 44,40,.1    |                                         |
+| 034 | STO + .1     | 44,40,.1    | Increase .1 by 1 (next number)          |
 | 035 | RCL .2       | 45,.2       | .2 = loop to                            |
 | 036 | RCL .1       | 45,.1       | .1 = loop from                          |
-| 037 | g TEST 7     | 43,30,7     | If from>to: done                        |
+| 037 | g TEST 7     | 43,30,7     | If from>to: Done                        |
 | 038 | GTO E        | 22,15       |                                         |
 | 039 | RCL .1       | 45,.1       |                                         |
 | 040 | STO .4       | 44,.4       | .4 = working number                     |
 | 041 | g CLX        | 43,35       | Clear sum                               |
 | 042 | STO .3       | 44,.3       | .3 = sum                                |
-| 043 | f LBL D      | 42,21,14    | Iterate over digits                     |
+| 043 | f LBL D      | 42,21,14    | Iterate over N digits                   |
 | 044 | RCL .4       | 45,.4       |                                         |
 | 045 | g INT        | 43,44       |                                         |
 | 046 | g TEST 4     | 43,30,4     | Working number <=0: Move to next number |
 | 047 | GTO .9       | 22,13       |                                         |
-| 048 | 1            | 1           |                                         |
+| 048 | 1            | 1           | Get next digit by MOD                   |
 | 049 | 0            | 0           |                                         |
 | 050 | ÷            | 10          |                                         |
 | 051 | STO .4       | 44,.4       |                                         |
@@ -93,14 +93,14 @@ found, it is added to matrix A. The display shows 0.0000 when finished.
 | 053 | x<>y         | 34          |                                         |
 | 054 | f FRAC       | 42,44       |                                         |
 | 055 | x            | 20          |                                         |
-| 056 | g TEST 4     | 43,30,4     | Skip if digit<=0                        |
+| 056 | g TEST 4     | 43,30,4     | Skip to next digit if digit<=0          |
 | 057 | GTO D        | 22,14       |                                         |
 | 058 | g INT        | 43,44       |                                         |
 | 059 | STO I        | 44,25       | Store current digit in I                |
 | 060 | 1            | 1           |                                         |
-| 061 | g TEST 6     | 43,30,6     |                                         |
-| 062 | RCL (i)      | 45,24       | Get stored value (x^N)                  |
-| 063 | STO + .3     | 44,40,.3    | Add to sum                              |
+| 061 | g TEST 6     | 43,30,6     | If I!=1: get from Rx                    |
+| 062 | RCL (i)      | 45,24       | Get stored value from Rx (x^N)          |
+| 063 | STO + .3     | 44,40,.3    | Add value to sum                        |
 | 064 | RCL .1       | 45,.1       |                                         |
 | 065 | RCL .3       | 45,.3       |                                         |
 | 066 | g TEST 7     | 43,30,7     | If sum>number: go to next number        |
@@ -109,11 +109,11 @@ found, it is added to matrix A. The display shows 0.0000 when finished.
 | 069 | f LBL .9     | 42,21,.9    |                                         |
 | 070 | RCL .1       | 45,.1       |                                         |
 | 071 | RCL .3       | 45,.3       |                                         |
-| 072 | g TEST 5     | 43,30,5     | Check sum = number                      |
-| 073 | u STO A      | u,44,11     | Store result if equal                   |
+| 072 | g TEST 5     | 43,30,5     | Check if sum = number                   |
+| 073 | u STO A      | u,44,11     | Store result in matrix if equal         |
 | 074 | GTO C        | 22,13       |                                         |
 | 075 | f LBL E      | 42,21,15    | End (return)                            |
-| 076 | g CLX        | 43,35       |                                         |
-| 077 | f MATRIX 1   | 42,16,1     |                                         |
+| 076 | g CLX        | 43,35       | Clear x                                 |
+| 077 | f MATRIX 1   | 42,16,1     | Set matrix to first position 1,1        |
 | 078 | g RTN        | 43,32       |                                         |
 #+tblfm: $1=@#-1;%03d

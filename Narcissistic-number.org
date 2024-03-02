@@ -84,7 +84,7 @@ found, it is added to matrix A. The display shows 0.0000 when finished.
 | 044 | RCL .4       | 45,.4       |                                         |
 | 045 | g INT        | 43,44       |                                         |
 | 046 | g TEST 4     | 43,30,4     | Working number <=0: Move to next number |
-| 047 | GTO .9       | 22,13       |                                         |
+| 047 | GTO .9       | 22,.9       |                                         |
 | 048 | 1            | 1           | Get next digit by MOD                   |
 | 049 | 0            | 0           |                                         |
 | 050 | ÷            | 10          |                                         |
